@@ -4,16 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portal Kepegawaian - SMAN 1 Sukabumi</title>
-<!-- Mengambil font Quicksand untuk tampilan membulat dan modern -->
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  /* Base Style & Color Palette */
+  /* Base Style & Color Palette (Disesuaikan dengan Logo SMAN 1) */
   :root {
-    --bg-color: #0A2716;       /* Hijau gelap background */
-    --card-bg: #133722;        /* Hijau untuk kartu */
-    --accent-color: #4ADE80;   /* Hijau terang untuk sorotan/badge */
-    --text-main: #FFFFFF;
-    --text-muted: #9CA3AF;
+    --bg-color: #0f172a;       /* Latar belakang Biru Gelap (Navy/Slate) */
+    --card-bg: #1e293b;        /* Latar belakang Kartu sedikit lebih terang */
+    --accent-blue: #1ca1db;    /* Biru khas Logo SMAN 1 */
+    --accent-yellow: #fce116;  /* Kuning khas Logo SMAN 1 */
+    --accent-red: #e30a17;     /* Merah khas Logo SMAN 1 */
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
   }
 
   body { 
@@ -24,45 +25,67 @@
     padding: 0; 
   }
 
-  /* Navbar */
+  /* Navbar dengan Garis Gradasi */
   .navbar { 
     padding: 20px 5%; 
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
-    background-color: transparent;
+    background-color: #0b1120;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    /* Efek Gradasi Garis Bawah */
+    border-bottom: 4px solid transparent;
+    border-image: linear-gradient(to right, var(--accent-blue), var(--accent-yellow), var(--accent-red)) 1;
   }
+  
   .logo { 
     font-size: 1.5rem; 
     font-weight: 700; 
     color: var(--text-main); 
     text-decoration: none; 
-    letter-spacing: 2px;
+    letter-spacing: 1px;
   }
-  .logo span { color: var(--accent-color); }
+  .logo span { color: var(--accent-blue); }
 
   .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 50px 20px; }
   
-  /* Hero Section (Meniru bagian atas gambar) */
+  /* Hero Section */
   .hero { 
-    padding: 60px 0; 
+    padding: 40px 0 20px 0; /* Padding atas-bawah diperkecil agar tidak terlalu jauh */
     text-align: center;
   }
   .hero-subtitle {
     font-size: 1rem;
-    color: var(--accent-color);
+    color: var(--accent-blue);
     text-transform: uppercase;
     letter-spacing: 2px;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+  
+  /* Wadah Judul dan Logo Bersebelahan */
+  .title-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
     margin-bottom: 10px;
-    font-weight: 600;
   }
   .hero-title { 
     margin: 0; 
-    font-size: 3.5rem; 
+    font-size: 3rem; 
     font-weight: 700; 
     line-height: 1.2;
-    margin-bottom: 15px;
   }
+  .hero-logo {
+    height: 55px; /* Tinggi logo disesuaikan dengan teks */
+    width: auto;
+    object-fit: contain;
+  }
+  
   .hero-desc {
     color: var(--text-muted);
     max-width: 600px;
@@ -70,49 +93,54 @@
     font-size: 1.1rem;
   }
   
-  /* Search Bar Elegan */
-  .search-container { max-width: 500px; margin: 40px auto; width: 100%; position: relative; }
+  /* Search Bar */
+  .search-container { 
+    max-width: 500px; 
+    margin: 25px auto 20px auto; /* Margin diperkecil agar lebih naik ke atas */
+    width: 100%; 
+  }
   .search-box { 
     width: 100%; 
-    padding: 16px 24px; 
+    padding: 14px 24px; 
     border-radius: 30px; 
-    border: none; 
-    background-color: rgba(255, 255, 255, 0.05); 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    background-color: rgba(255, 255, 255, 0.03); 
     color: var(--text-main); 
     font-size: 1rem; 
     font-family: 'Quicksand', sans-serif;
     box-sizing: border-box; 
     transition: all 0.3s ease; 
-    backdrop-filter: blur(10px);
   }
-  .search-box::placeholder { color: #6b8c78; }
   .search-box:focus { 
     outline: none; 
-    background-color: rgba(255, 255, 255, 0.1); 
-    box-shadow: 0 0 0 2px var(--accent-color); 
+    background-color: rgba(255, 255, 255, 0.08); 
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 10px rgba(28, 161, 219, 0.3); 
   }
   
-  /* Grid & Card System */
+  /* Grid & Card System (Merapatkan Gap dan Ukuran) */
   .grid { 
     display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
-    gap: 30px; 
-    margin-top: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Lebar minimal sedikit dikurangi */
+    gap: 20px; /* Celah antar kartu disesuaikan */
+    margin-top: 10px; /* Posisi deretan kartu digeser naik ke atas */
   }
   
   .card { 
     background-color: var(--card-bg); 
-    border-radius: 16px; 
+    border-radius: 12px; 
     overflow: hidden; 
     display: flex; 
     flex-direction: column; 
     height: 100%; 
+    border: 1px solid rgba(255, 255, 255, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
   }
   .card:hover { 
-    transform: translateY(-8px); 
-    box-shadow: 0 15px 40px rgba(0,0,0,0.4); 
+    transform: translateY(-5px); 
+    border-color: var(--accent-blue);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4); 
   }
   
   /* Foto Pegawai */
@@ -121,26 +149,26 @@
     aspect-ratio: 3/4; 
     object-fit: cover; 
     object-position: top; 
-    background-color: #081d10; 
+    background-color: #111827; 
   }
   
-  /* Konten Kartu */
+  /* Konten Kartu Dipadatkan */
   .card-body { 
-    padding: 20px; 
+    padding: 16px; 
     flex-grow: 1; 
     display: flex; 
     flex-direction: column; 
   }
   .nip { 
-    font-size: 0.85rem; 
+    font-size: 0.8rem; 
     color: var(--text-muted); 
-    margin-bottom: 5px;
+    margin-bottom: 4px;
   }
   .nama { 
-    font-size: 1.25rem; 
+    font-size: 1.15rem; 
     font-weight: 700; 
     color: var(--text-main); 
-    margin: 0 0 15px 0; 
+    margin: 0 0 12px 0; 
     line-height: 1.3;
   }
   
@@ -148,28 +176,37 @@
     margin-top: auto; 
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
   .golongan { 
-    font-size: 0.95rem; 
-    font-weight: 600; 
-    color: #A7F3D0; /* Hijau pucat */
+    font-size: 0.9rem; 
+    font-weight: 700; 
+    color: var(--accent-yellow); 
   }
   
-  .badge-container { display: flex; flex-wrap: wrap; gap: 8px; }
+  .badge-container { display: flex; flex-wrap: wrap; gap: 6px; }
   .badge-mapel { 
-    font-size: 0.75rem; 
+    font-size: 0.7rem; 
     font-weight: 700; 
-    padding: 6px 12px; 
-    border-radius: 20px; 
-    color: #064E3B; /* Teks hijau tua */
-    background-color: var(--accent-color); 
+    padding: 4px 10px; 
+    border-radius: 6px; 
+    color: #fff; 
+    background-color: var(--accent-blue); 
     letter-spacing: 0.5px;
   }
 
   /* Utilities */
-  #loading { text-align: center; font-size: 1.2rem; color: var(--accent-color); margin: 50px; font-weight: 600; }
+  #loading { text-align: center; font-size: 1.1rem; color: var(--accent-blue); margin: 30px; font-weight: 600; }
   #no-result { text-align: center; font-size: 1.1rem; color: var(--text-muted); margin: 50px; display: none; width: 100%; grid-column: 1 / -1; }
+
+  /* Responsif Layar HP Kecil */
+  @media (max-width: 600px) {
+    .hero-title { font-size: 2.2rem; }
+    .hero-logo { height: 45px; }
+    .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+    .card-body { padding: 12px; }
+    .nama { font-size: 1rem; }
+  }
 </style>
 </head>
 <body>
@@ -179,10 +216,16 @@
   </nav>
 
   <div class="container">
-    <!-- Hero Banner Baru -->
     <div class="hero">
       <div class="hero-subtitle">Direktori Guru & Staff</div>
-      <h1 class="hero-title">Daftar Urut Kepangkatan</h1>
+      
+      <!-- Wadah Judul dan Logo (Sesuai Referensi Gambar 3) -->
+      <div class="title-wrapper">
+        <h1 class="hero-title">Daftar Urut Kepangkatan</h1>
+        <!-- UBAH "LINK_LOGO_ANDA_DISINI.png" DENGAN LOKASI/NAMA FILE LOGO SMAN 1 SUKABUMI YANG ASLI -->
+        <img src="https://pbs.twimg.com/profile_images/613553729053159424/pxmvIpS_.png" alt="Logo SMAN 1 Sukabumi" class="hero-logo" onerror="this.style.display='none'">
+      </div>
+      
       <p class="hero-desc">Sistem Informasi Data Pegawai Terintegrasi</p>
       
       <!-- Kotak Pencarian -->
@@ -191,7 +234,7 @@
       </div>
     </div>
 
-    <div id="loading">Menyelaraskan data...</div>
+    <div id="loading">Memuat data dari Google Sheets...</div>
     
     <!-- Area Data -->
     <div class="grid" id="grid-pegawai">
@@ -200,7 +243,7 @@
   </div>
 
   <script>
-    // MASUKKAN LINK APPSCRIPT ANDA DI SINI
+    // MASUKKAN LINK APPSCRIPT ANDA DI SINI (JANGAN LUPA KUTIP TUNGGALNYA)
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyG73_qNCkImlWoOwo5O2F2c9NMQRZGswhoH0VuUXdpLWR9QL2JeYsownHBS_YFum7TnQ/exec';
 
     function escapeHTML(str) {
@@ -222,7 +265,7 @@
         data.forEach(p => {
           html += `
             <div class="card">
-              <img src="${p.Foto || 'https://via.placeholder.com/300x400/081d10/4ADE80?text=No+Photo'}" class="card-img" alt="Foto ${escapeHTML(p.Nama)}">
+              <img src="${p.Foto || 'https://via.placeholder.com/300x400/111827/1ca1db?text=No+Photo'}" class="card-img" alt="Foto ${escapeHTML(p.Nama)}">
               <div class="card-body">
                 <div class="nip">NIP. ${escapeHTML(p.NIP)}</div>
                 <h2 class="nama">${escapeHTML(p.Nama)}</h2>
@@ -237,7 +280,7 @@
           `;
         });
 
-        grid.innerHTML = '<div id="no-result" style="display: none; grid-column: 1 / -1; text-align: center; color: #9CA3AF; margin: 50px;">Tidak ada data pegawai yang cocok.</div>' + html;
+        grid.innerHTML = '<div id="no-result" style="display: none; grid-column: 1 / -1; text-align: center; color: #94A3B8; margin: 50px;">Tidak ada data pegawai yang cocok.</div>' + html;
         loading.style.display = 'none';
       } catch (error) {
         console.error('Error:', error);
