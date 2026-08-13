@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal DUK Live - Google Sheets</title>
+<style>
+  /* --- CSS TETAP SAMA SEPERTI SEBELUMNYA (RESPONSIF & RAPI) --- */
+  body { background-color: #121212; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+  .navbar { background-color: #1e1e1e; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #333; }
+  .logo { font-size: 1.5rem; font-weight: 900; color: #fff; text-decoration: none; }
+  .logo span { color: #f39c12; }
+  .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
+  .banner { background: linear-gradient(135deg, #2c3e50 0%, #000000 100%); border-radius: 12px; padding: 40px 30px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; }
+  .banner-text h2 { margin: 0; font-size: 2rem; color: #fff; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
+  
+  /* Desain Kartu */
+  .card { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; min-height: 460px; transition: 0.3s; }
+  .card:hover { transform: translateY(-5px); border-color: #f39c12; }
+  .card-img { width: 100%; height: 220px; object-fit: cover; background-color: #2a2a2a; }
+  .card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
+  .nip { font-size: 0.8rem; color: #888; }
+  .nama { font-size: 1.1rem; font-weight: 700; color: #fff; margin: 5px 0 15px 0; min-height: 3em; }
+  .pangkat-wrapper { margin-top: auto; background-color: #181818; padding: 12px; border-radius: 6px; border: 1px solid #2a2a2a; min-height: 85px; }
+  .golongan { font-size: 1rem; font-weight: 800; color: #f39c12; min-height: 2.6em; display: block; }
+  .badge-container { display: flex; gap: 5px; margin-top: 10px; }
+  .badge-tmt, .badge-mapel { font-size: 0.7rem; font-weight: bold; padding: 4px 6px; border-radius: 4px; color: #fff; white-space: nowrap; }
+  .badge-tmt { background-color: #e74c3c; }
+  .badge-mapel { background-color: #2980b9; }
+
+  /* Animasi Loading */
+  #loading { text-align: center; font-size: 1.2rem; color: #f39c12; margin: 50px; }
+</style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="#" class="logo">Portal<span>DUK</span></a>
+  </nav>
+
+  <div class="container">
+    <div class="banner">
+      <div class="banner-text">
+        <h2>Daftar Urut Kepangkatan</h2>
+        <p>Data Terkoneksi Google Sheets</p>
+      </div>
+    </div>
+
+    <div id="loading">Memuat data pegawai...</div>
+    <div class="grid" id="grid-pegawai">
+      </div>
+  </div>
+
+  <script>
+    // GANTI LINK DI BAWAH INI DENGAN LINK WEB APP ANDA
+    const scriptURL = 'MASUKKAN_URL_WEB_APP_ANDA_DISINI';
+
+    async function loadData() {
+      try {
+        const response = await fetch(scriptURL);
+        const data = await response.json();
+        const grid = document.getElementById('grid-pegawai');
+        const loading = document.getElementById('loading');
+        
+        let html = '';
+        data.forEach(p => {
+          html += `
+            <div class="card">
+              <img src="${p.Foto || 'https://via.placeholder.com/400'}" class="card-img" alt="Foto">
+              <div class="card-body">
+                <div class="nip">NIP. ${p.NIP}</div>
+                <h2 class="nama">${p.Nama}</h2>
+                <div class="pangkat-wrapper">
+                  <span class="golongan">${p.Pangkat} (${p.Golongan})</span>
+                  <div class="badge-container">
+                    <span class="badge-tmt">TMT: ${p.TMT}</span>
+                    <span class="badge-mapel">${p.Mapel}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        grid.innerHTML = html;
+        loading.style.display = 'none';
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('loading').innerText = 'Gagal memuat data. Pastikan Deployment Apps Script benar.';
+      }
+    }
+
+    // Jalankan fungsi saat web dibuka
+    loadData();
+  </script>
+
+</body>
+</html>
