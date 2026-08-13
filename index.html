@@ -3,86 +3,206 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal DUK Live - SMAN 1 Sukabumi</title>
+<title>Portal Kepegawaian - SMAN 1 Sukabumi</title>
+<!-- Mengambil font Quicksand untuk tampilan membulat dan modern -->
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  /* Base Style */
-  body { background-color: #121212; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
-  .navbar { background-color: #1e1e1e; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #333; }
-  .logo { font-size: 1.5rem; font-weight: 900; color: #fff; text-decoration: none; }
-  .logo span { color: #f39c12; }
-  .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
+  /* Base Style & Color Palette */
+  :root {
+    --bg-color: #0A2716;       /* Hijau gelap background */
+    --card-bg: #133722;        /* Hijau untuk kartu */
+    --accent-color: #4ADE80;   /* Hijau terang untuk sorotan/badge */
+    --text-main: #FFFFFF;
+    --text-muted: #9CA3AF;
+  }
+
+  body { 
+    background-color: var(--bg-color); 
+    color: var(--text-main); 
+    font-family: 'Quicksand', sans-serif; 
+    margin: 0; 
+    padding: 0; 
+  }
+
+  /* Navbar */
+  .navbar { 
+    padding: 20px 5%; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: transparent;
+  }
+  .logo { 
+    font-size: 1.5rem; 
+    font-weight: 700; 
+    color: var(--text-main); 
+    text-decoration: none; 
+    letter-spacing: 2px;
+  }
+  .logo span { color: var(--accent-color); }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 50px 20px; }
   
-  /* Banner */
-  .banner { background: linear-gradient(135deg, #2c3e50 0%, #000000 100%); border-radius: 12px; padding: 40px 30px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #333; }
-  .banner-text h2 { margin: 0; font-size: 2rem; color: #fff; }
+  /* Hero Section (Meniru bagian atas gambar) */
+  .hero { 
+    padding: 60px 0; 
+    text-align: center;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .hero-title { 
+    margin: 0; 
+    font-size: 3.5rem; 
+    font-weight: 700; 
+    line-height: 1.2;
+    margin-bottom: 15px;
+  }
+  .hero-desc {
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+  }
   
-  /* Search Bar */
-  .search-container { max-width: 600px; margin: 0 auto 30px auto; width: 100%; }
-  .search-box { width: 100%; padding: 15px 20px; border-radius: 8px; border: 1px solid #333; background-color: #1e1e1e; color: #fff; font-size: 1rem; box-sizing: border-box; transition: all 0.3s; }
-  .search-box:focus { outline: none; border-color: #f39c12; box-shadow: 0 0 10px rgba(243, 156, 18, 0.2); }
+  /* Search Bar Elegan */
+  .search-container { max-width: 500px; margin: 40px auto; width: 100%; position: relative; }
+  .search-box { 
+    width: 100%; 
+    padding: 16px 24px; 
+    border-radius: 30px; 
+    border: none; 
+    background-color: rgba(255, 255, 255, 0.05); 
+    color: var(--text-main); 
+    font-size: 1rem; 
+    font-family: 'Quicksand', sans-serif;
+    box-sizing: border-box; 
+    transition: all 0.3s ease; 
+    backdrop-filter: blur(10px);
+  }
+  .search-box::placeholder { color: #6b8c78; }
+  .search-box:focus { 
+    outline: none; 
+    background-color: rgba(255, 255, 255, 0.1); 
+    box-shadow: 0 0 0 2px var(--accent-color); 
+  }
   
   /* Grid & Card System */
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
+  .grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
+    gap: 30px; 
+    margin-top: 20px;
+  }
   
-  .card { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; height: 100%; transition: 0.3s; }
-  .card:hover { transform: translateY(-5px); border-color: #f39c12; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+  .card { 
+    background-color: var(--card-bg); 
+    border-radius: 16px; 
+    overflow: hidden; 
+    display: flex; 
+    flex-direction: column; 
+    height: 100%; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+  .card:hover { 
+    transform: translateY(-8px); 
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4); 
+  }
   
-  /* Perbaikan Responsivitas Gambar (Proporsi 3:4 Khas Pas Foto) */
-  .card-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; background-color: #2a2a2a; border-bottom: 2px solid #333; }
+  /* Foto Pegawai */
+  .card-img { 
+    width: 100%; 
+    aspect-ratio: 3/4; 
+    object-fit: cover; 
+    object-position: top; 
+    background-color: #081d10; 
+  }
   
-  .card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
-  .nip { font-size: 0.8rem; color: #888; }
-  .nama { font-size: 1.1rem; font-weight: 700; color: #fff; margin: 5px 0 15px 0; }
-  .pangkat-wrapper { margin-top: auto; background-color: #181818; padding: 12px; border-radius: 6px; border: 1px solid #2a2a2a; }
-  .golongan { font-size: 1rem; font-weight: 800; color: #f39c12; display: block; }
-  .badge-container { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+  /* Konten Kartu */
+  .card-body { 
+    padding: 20px; 
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column; 
+  }
+  .nip { 
+    font-size: 0.85rem; 
+    color: var(--text-muted); 
+    margin-bottom: 5px;
+  }
+  .nama { 
+    font-size: 1.25rem; 
+    font-weight: 700; 
+    color: var(--text-main); 
+    margin: 0 0 15px 0; 
+    line-height: 1.3;
+  }
+  
+  .pangkat-wrapper { 
+    margin-top: auto; 
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .golongan { 
+    font-size: 0.95rem; 
+    font-weight: 600; 
+    color: #A7F3D0; /* Hijau pucat */
+  }
+  
+  .badge-container { display: flex; flex-wrap: wrap; gap: 8px; }
   .badge-mapel { 
-      font-size: 0.7rem; 
-      font-weight: bold; 
-      padding: 4px 6px; 
-      border-radius: 4px; 
-      color: #fff; 
-      white-space: nowrap; 
-      background-color: #2980b9; 
+    font-size: 0.75rem; 
+    font-weight: 700; 
+    padding: 6px 12px; 
+    border-radius: 20px; 
+    color: #064E3B; /* Teks hijau tua */
+    background-color: var(--accent-color); 
+    letter-spacing: 0.5px;
   }
 
   /* Utilities */
-  #loading { text-align: center; font-size: 1.2rem; color: #f39c12; margin: 50px; }
-  #no-result { text-align: center; font-size: 1.1rem; color: #888; margin: 50px; display: none; width: 100%; grid-column: 1 / -1; }
+  #loading { text-align: center; font-size: 1.2rem; color: var(--accent-color); margin: 50px; font-weight: 600; }
+  #no-result { text-align: center; font-size: 1.1rem; color: var(--text-muted); margin: 50px; display: none; width: 100%; grid-column: 1 / -1; }
 </style>
 </head>
 <body>
 
   <nav class="navbar">
-    <a href="#" class="logo">Portal<span>DUK</span></a>
+    <a href="#" class="logo">SMAN 1 <span>SUKABUMI</span></a>
   </nav>
 
   <div class="container">
-    <div class="banner">
-      <div class="banner-text">
-        <h2>Daftar Urut Kepangkatan</h2>
-        <p>Data Terkoneksi Google Sheets SMAN 1 Sukabumi</p>
+    <!-- Hero Banner Baru -->
+    <div class="hero">
+      <div class="hero-subtitle">Direktori Guru & Staff</div>
+      <h1 class="hero-title">Daftar Urut Kepangkatan</h1>
+      <p class="hero-desc">Sistem Informasi Data Pegawai Terintegrasi</p>
+      
+      <!-- Kotak Pencarian -->
+      <div class="search-container">
+        <input type="text" id="searchInput" class="search-box" placeholder="Ketik nama atau NIP..." onkeyup="filterPegawai()">
       </div>
     </div>
 
-    <!-- Kotak Pencarian -->
-    <div class="search-container">
-      <input type="text" id="searchInput" class="search-box" placeholder="Cari berdasarkan Nama atau NIP..." onkeyup="filterPegawai()">
-    </div>
-
-    <div id="loading">Memuat data pegawai...</div>
+    <div id="loading">Menyelaraskan data...</div>
     
     <!-- Area Data -->
     <div class="grid" id="grid-pegawai">
-      <!-- Hasil "Pencarian Tidak Ditemukan" -->
-      <div id="no-result">Pegawai tidak ditemukan.</div>
+      <div id="no-result">Tidak ada data pegawai yang cocok.</div>
     </div>
   </div>
 
   <script>
+    // MASUKKAN LINK APPSCRIPT ANDA DI SINI
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyG73_qNCkImlWoOwo5O2F2c9NMQRZGswhoH0VuUXdpLWR9QL2JeYsownHBS_YFum7TnQ/exec';
 
-    // Pengaman XSS dan penanganan data kosong
     function escapeHTML(str) {
       if (!str) return '-'; 
       return str.toString().replace(/[&<>'"]/g, function(tag) {
@@ -97,13 +217,12 @@
         const data = await response.json();
         const grid = document.getElementById('grid-pegawai');
         const loading = document.getElementById('loading');
-        const noResult = document.getElementById('no-result');
         
         let html = '';
         data.forEach(p => {
           html += `
             <div class="card">
-              <img src="${p.Foto || 'https://via.placeholder.com/300x400'}" class="card-img" alt="Foto ${escapeHTML(p.Nama)}">
+              <img src="${p.Foto || 'https://via.placeholder.com/300x400/081d10/4ADE80?text=No+Photo'}" class="card-img" alt="Foto ${escapeHTML(p.Nama)}">
               <div class="card-body">
                 <div class="nip">NIP. ${escapeHTML(p.NIP)}</div>
                 <h2 class="nama">${escapeHTML(p.Nama)}</h2>
@@ -118,16 +237,14 @@
           `;
         });
 
-        // Hapus elemen loading dan render kartu (pertahankan elemen no-result)
-        grid.innerHTML = '<div id="no-result" style="display: none; grid-column: 1 / -1; text-align: center; color: #888; margin: 50px;">Data tidak ditemukan.</div>' + html;
+        grid.innerHTML = '<div id="no-result" style="display: none; grid-column: 1 / -1; text-align: center; color: #9CA3AF; margin: 50px;">Tidak ada data pegawai yang cocok.</div>' + html;
         loading.style.display = 'none';
       } catch (error) {
         console.error('Error:', error);
-        document.getElementById('loading').innerText = 'Gagal memuat data. Pastikan jaringan stabil.';
+        document.getElementById('loading').innerText = 'Koneksi terputus. Gagal memuat data.';
       }
     }
 
-    // Fungsi Live Search Pegawai
     function filterPegawai() {
       const input = document.getElementById('searchInput');
       const filter = input.value.toLowerCase();
@@ -142,14 +259,13 @@
         const nip = cards[i].querySelector('.nip').innerText.toLowerCase();
         
         if (nama.includes(filter) || nip.includes(filter)) {
-          cards[i].style.display = ""; // Munculkan kartu
+          cards[i].style.display = ""; 
           found = true;
         } else {
-          cards[i].style.display = "none"; // Sembunyikan kartu
+          cards[i].style.display = "none"; 
         }
       }
 
-      // Tampilkan tulisan "Data tidak ditemukan" jika tidak ada yang cocok
       if (found) {
         noResult.style.display = "none";
       } else {
@@ -157,7 +273,6 @@
       }
     }
 
-    // Eksekusi fungsi loadData() saat halaman pertama kali dibuka
     loadData();
   </script>
 
