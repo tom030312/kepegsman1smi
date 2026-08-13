@@ -291,26 +291,86 @@
       </div>
     </div>
     <!-- === MULAI BAGIAN BARU === -->
-
-      <!-- 2. Jajaran Pimpinan Khusus -->
-      <div class="section-title">Jajaran Pimpinan</div>
-      
-      <!-- Grid khusus Pimpinan (Dibuat terpisah agar selalu di atas) -->
+<!-- Grid khusus Pimpinan -->
       <div class="grid" id="grid-pimpinan">
-        <!-- Nanti kartu Kepala Sekolah & Wakasek bisa dimuat di sini -->
-      </div>
-      
-      <div class="section-title" style="margin-top: 50px;">Seluruh Guru & Staff</div>
-      
-      <!-- === BATAS BAGIAN BARU === -->
-    <div id="loading">Memuat data dari Google Sheets...</div>
-    
-    <!-- Area Data -->
-    <div class="grid" id="grid-pegawai">
-      <div id="no-result">Tidak ada data pegawai yang cocok.</div>
-    </div>
-  </div>
+        
+        <!-- 1. KEPALA SEKOLAH -->
+        <div class="card kepsek">
+          <!-- Ganti tulisan LINK_FOTO_KEPSEK dengan link gambar asli -->
+          <img src="LINK_FOTO_KEPSEK.jpg" class="card-img" alt="Foto Kepala Sekolah" onerror="this.src='https://via.placeholder.com/300x400/111827/fce116?text=Kepala+Sekolah'">
+          <div class="card-body">
+            <div class="nip">NIP. 197001012000031001</div>
+            <h2 class="nama">Nama Kepala Sekolah, M.Pd.</h2>
+            <div class="pangkat-wrapper">
+              <span class="golongan">Pembina Utama Muda (IV/c)</span>
+              <div class="badge-container">
+                <span class="badge-mapel" style="background-color: var(--accent-yellow); color: #000;">KEPALA SEKOLAH</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <!-- 2. WAKASEK KURIKULUM -->
+        <div class="card">
+          <img src="LINK_FOTO_WAKUR.jpg" class="card-img" alt="Foto Wakasek Kurikulum" onerror="this.src='https://via.placeholder.com/300x400/111827/e30a17?text=Wakasek'">
+          <div class="card-body">
+            <div class="nip">NIP. 197502022005011002</div>
+            <h2 class="nama">Nama Wakasek, S.Pd.</h2>
+            <div class="pangkat-wrapper">
+              <span class="golongan">Pembina Tingkat I (IV/b)</span>
+              <div class="badge-container">
+                <span class="badge-mapel" style="background-color: var(--accent-red);">WAKASEK KURIKULUM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. WAKASEK KESISWAAN -->
+        <div class="card">
+          <img src="LINK_FOTO_WAKES.jpg" class="card-img" alt="Foto Wakasek Kesiswaan" onerror="this.src='https://via.placeholder.com/300x400/111827/e30a17?text=Wakasek'">
+          <div class="card-body">
+            <div class="nip">NIP. 197603032006041003</div>
+            <h2 class="nama">Nama Wakasek, M.Si.</h2>
+            <div class="pangkat-wrapper">
+              <span class="golongan">Pembina (IV/a)</span>
+              <div class="badge-container">
+                <span class="badge-mapel" style="background-color: var(--accent-red);">WAKASEK KESISWAAN</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. WAKASEK SARPRAS -->
+        <div class="card">
+          <img src="LINK_FOTO_SARPRAS.jpg" class="card-img" alt="Foto Wakasek Sarpras" onerror="this.src='https://via.placeholder.com/300x400/111827/e30a17?text=Wakasek'">
+          <div class="card-body">
+            <div class="nip">NIP. 198004042008012004</div>
+            <h2 class="nama">Nama Wakasek, S.Pd.</h2>
+            <div class="pangkat-wrapper">
+              <span class="golongan">Penata Tingkat I (III/d)</span>
+              <div class="badge-container">
+                <span class="badge-mapel" style="background-color: var(--accent-red);">WAKASEK SARPRAS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. WAKASEK HUMAS -->
+        <div class="card">
+          <img src="LINK_FOTO_HUMAS.jpg" class="card-img" alt="Foto Wakasek Humas" onerror="this.src='https://via.placeholder.com/300x400/111827/e30a17?text=Wakasek'">
+          <div class="card-body">
+            <div class="nip">NIP. 198205052010011005</div>
+            <h2 class="nama">Nama Wakasek, M.Pd.</h2>
+            <div class="pangkat-wrapper">
+              <span class="golongan">Penata (III/c)</span>
+              <div class="badge-container">
+                <span class="badge-mapel" style="background-color: var(--accent-red);">WAKASEK HUMAS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
   <script>
     // MASUKKAN LINK APPSCRIPT ANDA DI SINI (JANGAN LUPA KUTIP TUNGGALNYA)
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyG73_qNCkImlWoOwo5O2F2c9NMQRZGswhoH0VuUXdpLWR9QL2JeYsownHBS_YFum7TnQ/exec';
