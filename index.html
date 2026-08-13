@@ -36,8 +36,6 @@
   .pangkat-wrapper { margin-top: auto; background-color: #181818; padding: 12px; border-radius: 6px; border: 1px solid #2a2a2a; }
   .golongan { font-size: 1rem; font-weight: 800; color: #f39c12; display: block; }
   .badge-container { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
-  .badge-tmt, .badge-mapel { font-size: 0.7rem; font-weight: bold; padding: 4px 6px; border-radius: 4px; color: #fff; white-space: nowrap; }
-  .badge-tmt { background-color: #e74c3c; }
   .badge-mapel { background-color: #2980b9; }
 
   /* Utilities */
@@ -104,7 +102,6 @@
                 <div class="pangkat-wrapper">
                   <span class="golongan">${escapeHTML(p.Pangkat)} (${escapeHTML(p.Golongan)})</span>
                   <div class="badge-container">
-                    <span class="badge-tmt">TMT: ${escapeHTML(p.TMT)}</span>
                     <span class="badge-mapel">${escapeHTML(p.Mapel)}</span>
                   </div>
                 </div>
