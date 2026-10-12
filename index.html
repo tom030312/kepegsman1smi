@@ -323,65 +323,70 @@
       });
     }
 
-    async function loadData() {
+   async function loadData() {
       try {
         const response = await fetch(scriptURL);
         const data = await response.json();
-        const grid = document.getElementById('grid-pegawai');
+        const gridPegawai = document.getElementById('grid-pegawai');
+        const gridPimpinan = document.getElementById('grid-pimpinan'); // Area khusus pimpinan
         const loading = document.getElementById('loading');
         
-        let html = '';
+        let htmlPegawai = '';
+        let htmlPimpinan = '';
+
         data.forEach(p => {
-          html += `
-            <div class="card">
-              <img src="${p.Foto || 'https://via.placeholder.com/300x400/111827/1ca1db?text=No+Photo'}" class="card-img" alt="Foto ${escapeHTML(p.Nama)}">
-              <div class="card-body">
-                <div class="nip">NIP. ${escapeHTML(p.NIP)}</div>
-                <h2 class="nama">${escapeHTML(p.Nama)}</h2>
-                <div class="pangkat-wrapper">
-                  <span class="golongan">${escapeHTML(p.Pangkat)} (${escapeHTML(p.Golongan)})</span>
-                  <div class="badge-container">
-                    <span class="badge-mapel">${escapeHTML(p.Mapel)}</span>
+          // Cek apakah kolom Jabatan ada isinya
+          const jabatan = p.Jabatan ? p.Jabatan.toString().trim() : '';
+          
+          if (jabatan !== '' && jabatan !== '-') {
+            // == JIKA PUNYA JABATAN (MASUK KE ATAS) ==
+            // Logika otomatis: Jika teksnya 'kepala sekolah', beri efek emas, jika bukan beri warna merah.
+            let extraClass = jabatan.toLowerCase().includes('kepala sekolah') ? 'kepsek' : '';
+            let badgeColor = jabatan.toLowerCase().includes('kepala sekolah') ? 'var(--accent-yellow)' : 'var(--accent-red)';
+            let textColor = jabatan.toLowerCase().includes('kepala sekolah') ? '#000' : '#fff';
+
+            htmlPimpinan += `
+              <div class="card ${extraClass}">
+                <img src="${p.Foto || 'https://via.placeholder.com/300x400/111827/fce116?text=Pimpinan'}" class="card-img" alt="Foto ${escapeHTML(p.Nama)}">
+                <div class="card-body">
+                  <div class="nip">NIP. ${escapeHTML(p.NIP)}</div>
+                  <h2 class="nama">${escapeHTML(p.Nama)}</h2>
+                  <div class="pangkat-wrapper">
+                    <span class="golongan">${escapeHTML(p.Pangkat)} (${escapeHTML(p.Golongan)})</span>
+                    <div class="badge-container">
+                      <span class="badge-mapel" style="background-color: ${badgeColor}; color: ${textColor};">${escapeHTML(jabatan)}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          `;
+            `;
+          } else {
+            // == JIKA TIDAK PUNYA JABATAN (GURU BIASA, MASUK KE BAWAH) ==
+            htmlPegawai += `
+              <div class="card">
+                <img src="${p.Foto || 'https://via.placeholder.com/300x400/111827/1ca1db?text=No+Photo'}" class="card-img" alt="Foto ${escapeHTML(p.Nama)}">
+                <div class="card-body">
+                  <div class="nip">NIP. ${escapeHTML(p.NIP)}</div>
+                  <h2 class="nama">${escapeHTML(p.Nama)}</h2>
+                  <div class="pangkat-wrapper">
+                    <span class="golongan">${escapeHTML(p.Pangkat)} (${escapeHTML(p.Golongan)})</span>
+                    <div class="badge-container">
+                      <span class="badge-mapel">${escapeHTML(p.Mapel)}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
         });
 
-        grid.innerHTML = '<div id="no-result" style="display: none; grid-column: 1 / -1; text-align: center; color: #94A3B8; margin: 50px;">Tidak ada data pegawai yang cocok.</div>' + html;
+        // Cetak ke layar masing-masing
+        gridPimpinan.innerHTML = htmlPimpinan;
+        gridPegawai.innerHTML = '<div id="no-result" style="display: none; grid-column: 1 / -1; text-align: center; color: #94A3B8; margin: 50px;">Tidak ada data pegawai yang cocok.</div>' + htmlPegawai;
         loading.style.display = 'none';
       } catch (error) {
         console.error('Error:', error);
         document.getElementById('loading').innerText = 'Koneksi terputus. Gagal memuat data.';
-      }
-    }
-
-    function filterPegawai() {
-      const input = document.getElementById('searchInput');
-      const filter = input.value.toLowerCase();
-      const grid = document.getElementById('grid-pegawai');
-      const cards = grid.getElementsByClassName('card');
-      const noResult = document.getElementById('no-result');
-      
-      let found = false;
-
-      for (let i = 0; i < cards.length; i++) {
-        const nama = cards[i].querySelector('.nama').innerText.toLowerCase();
-        const nip = cards[i].querySelector('.nip').innerText.toLowerCase();
-        
-        if (nama.includes(filter) || nip.includes(filter)) {
-          cards[i].style.display = ""; 
-          found = true;
-        } else {
-          cards[i].style.display = "none"; 
-        }
-      }
-
-      if (found) {
-        noResult.style.display = "none";
-      } else {
-        noResult.style.display = "block";
       }
     }
 
