@@ -199,36 +199,63 @@
   #loading { text-align: center; font-size: 1.1rem; color: var(--accent-blue); margin: 30px; font-weight: 600; }
   #no-result { text-align: center; font-size: 1.1rem; color: var(--text-muted); margin: 50px; display: none; width: 100%; grid-column: 1 / -1; }
 
-  /* Responsif Layar HP Kecil */
-/* Responsif Layar HP Kecil */
+Responsif Layar HP Kecil (Smartphone)
+   ========================================= */
 @media (max-width: 600px) {
-  .hero-title { font-size: 2.2rem; }
-  .hero-logo { height: 60px; }
-  .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-  .card-body { padding: 12px; }
-  .nama { font-size: 1rem; }
+  .hero-title { font-size: 1.8rem; }
+  .hero-logo { height: 50px; }
+  
+  /* 1. Pengaturan Grid Seluruh Guru (Bawah) */
+  .grid { 
+    /* Menggunakan minmax 140px agar di HP layar sempit tetap muat 2 kolom berdampingan */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+    gap: 10px; 
+    padding: 0 10px; /* Sedikit jarak di kiri-kanan layar */
+  }
 
-  /* === TAMBAHKAN KODE DI BAWAH INI UNTUK SWIPE PIMPINAN === */
+  /* 2. Pengaturan Dalam Kartu (Teks & Spasi) */
+  .card-body { 
+    padding: 10px; /* Kurangi ruang kosong di dalam kartu */
+  }
+  .nip {
+    font-size: 0.7rem; /* Perkecil NIP agar tidak terpotong */
+  }
+  .nama { 
+    font-size: 0.9rem; /* Perkecil nama */
+    line-height: 1.3;
+    margin-bottom: 5px;
+    word-wrap: break-word; /* PAKSA teks panjang untuk turun ke baris baru */
+  }
+  .golongan {
+    font-size: 0.7rem;
+  }
+  .badge-mapel {
+    font-size: 0.65rem;
+    padding: 4px 6px;
+  }
+
+  /* 3. Pengaturan Khusus Jajaran Pimpinan (Geser/Swipe) */
   #grid-pimpinan {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
+    gap: 12px; /* Jarak antar kartu pimpinan */
     padding-bottom: 15px;
-    gap: 15px;
+    padding-left: 10px; /* Jarak aman di sisi kiri */
+    padding-right: 10px;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch; /* Efek geser mulus di iPhone */
+    scrollbar-width: none; /* Sembunyikan scrollbar di Firefox */
   }
   
   #grid-pimpinan::-webkit-scrollbar {
-    display: none;
+    display: none; /* Sembunyikan scrollbar di Chrome/Safari */
   }
 
   #grid-pimpinan .card {
-    flex: 0 0 160px;
-    scroll-snap-align: start;
+    flex: 0 0 150px; /* Kunci lebar kartu pimpinan di angka 150px */
+    scroll-snap-align: start; /* Saat digeser, kartu akan merapat rapi ke sisi kiri */
   }
-  /* === BATAS TAMBAHAN KODE === */
 } /* <-- PASTIKAN KODE BARU ADA DI ATAS TANDA KURUNG TUTUP INI */
 
   /* --- TAMBAHAN UNTUK STATISTIK & PIMPINAN --- */
