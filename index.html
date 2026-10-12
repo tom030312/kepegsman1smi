@@ -200,13 +200,37 @@
   #no-result { text-align: center; font-size: 1.1rem; color: var(--text-muted); margin: 50px; display: none; width: 100%; grid-column: 1 / -1; }
 
   /* Responsif Layar HP Kecil */
-  @media (max-width: 600px) {
-    .hero-title { font-size: 2.2rem; }
-    .hero-logo { height: 60px; }
-    .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-    .card-body { padding: 12px; }
-    .nama { font-size: 1rem; }
+/* Responsif Layar HP Kecil */
+@media (max-width: 600px) {
+  .hero-title { font-size: 2.2rem; }
+  .hero-logo { height: 60px; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+  .card-body { padding: 12px; }
+  .nama { font-size: 1rem; }
+
+  /* === TAMBAHKAN KODE DI BAWAH INI UNTUK SWIPE PIMPINAN === */
+  #grid-pimpinan {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 15px;
+    gap: 15px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
+  
+  #grid-pimpinan::-webkit-scrollbar {
+    display: none;
+  }
+
+  #grid-pimpinan .card {
+    flex: 0 0 80%; 
+    scroll-snap-align: center;
+  }
+  /* === BATAS TAMBAHAN KODE === */
+} /* <-- PASTIKAN KODE BARU ADA DI ATAS TANDA KURUNG TUTUP INI */
+
   /* --- TAMBAHAN UNTUK STATISTIK & PIMPINAN --- */
   
   /* Desain Kotak Statistik */
