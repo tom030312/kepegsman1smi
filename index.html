@@ -194,7 +194,7 @@
     background-color: var(--accent-blue); 
     letter-spacing: 0.5px;
   }
-    /* Desain Wadah Pencarian & Filter untuk Laptop/Tablet */
+/* Desain Wadah Pencarian & Filter untuk Laptop/Tablet */
 .search-filter-container {
   display: flex;
   flex-direction: row; /* Berdampingan kiri-kanan */
@@ -210,7 +210,6 @@
   flex: 1;
   width: 100%;
 }
-
   /* Utilities */
   #loading { text-align: center; font-size: 1.1rem; color: var(--accent-blue); margin: 30px; font-weight: 600; }
   #no-result { text-align: center; font-size: 1.1rem; color: var(--text-muted); margin: 50px; display: none; width: 100%; grid-column: 1 / -1; }
@@ -364,14 +363,20 @@
         <!-- UBAH "LINK_LOGO_ANDA_DISINI.png" DENGAN LOKASI/NAMA FILE LOGO SMAN 1 SUKABUMI YANG ASLI -->
         <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhqDZC1BfZwyWX3jZitY14xuvw7LI6p5DBWdGdpvsFh6iPiBoDIYncByJ0KiWMdWtJLpgrYIrUFIh-gBpnvDm6ng_oV5RO1IgoVBmlXHzQOT-oN6Qah33aMs2dZFqdpXMbLaYWEZJdto87JFGhWmrT_7pGjuzBeBA019KBJLx3emFCAXC4gkTEiBWqm_HQ/s2048/Logo%20SMAN%201%20Sukabumi.webp" alt="Logo SMAN 1 Sukabumi" class="hero-logo" onerror="this.style.display='none'">
       </div>
-      
-      <p class="hero-desc">Sistem Informasi Data Pegawai Terintegrasi</p>
-      
-      <!-- Kotak Pencarian -->
-      <div class="search-container">
-        <input type="text" id="searchInput" class="search-box" placeholder="Ketik nama atau NIP..." onkeyup="filterPegawai()">
-      </div>
-    </div>
+       <!-- filter baru-->
+<p class="hero-subtitle">Sistem Informasi Data Pegawai Terintegrasi</p>
+
+<!-- PASTE KODE INI TEPAT DI BAWAH TEKS TERINTEGRASI -->
+<div class="search-filter-container">
+  <input type="text" id="searchInput" onkeyup="filterPegawai()" placeholder="Ketik nama atau NIP...">
+  
+  <select id="statusFilter" onchange="filterPegawai()" class="filter-dropdown">
+    <option value="">Semua Status</option>
+    <option value="pns">PNS</option>
+    <option value="pppk">PPPK</option>
+    <option value="pppk pw">PPPK PW</option>
+  </select>
+</div>
     <!-- === MULAI BAGIAN BARU === -->
 
       <!-- 2. Jajaran Pimpinan Khusus -->
@@ -483,7 +488,7 @@
     }
 
     loadData();
-// Filter Pegawai
+// Filter
   function filterPegawai() {
   const searchInput = document.getElementById('searchInput').value.toLowerCase();
   const filterValue = document.getElementById('statusFilter').value.toLowerCase();
