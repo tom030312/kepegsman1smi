@@ -344,7 +344,51 @@
     border: 2px solid var(--accent-yellow);
     box-shadow: 0 0 20px rgba(252, 225, 22, 0.15);
   }
+/* Desain dasar Input Pencarian dan Select Filter */
+.search-filter-container input,
+.search-filter-container select {
+  background-color: transparent; /* Membuat latar belakang transparan menyatu dengan tema */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Garis tepi tipis dan pudar (samar) */
+  border-radius: 50px; /* Melengkung penuh seperti kapsul */
+  padding: 12px 25px; /* Jarak teks ke garis tepi */
+  color: #ffffff; /* Warna teks putih */
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  box-sizing: border-box;
+}
 
+/* Mengatur warna teks bantuan (placeholder) agar agak redup */
+.search-filter-container input::placeholder {
+  color: rgba(255, 255, 255, 0.4); 
+}
+
+/* Efek menyala tipis ketika kotak diklik */
+.search-filter-container input:focus,
+.search-filter-container select:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* KHUSUS DROPDOWN FILTER: Menghilangkan gaya bawaan browser dan membuat panah kustom */
+.search-filter-container select {
+  appearance: none; 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  /* Membuat ikon panah ke bawah warna putih transparan */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 15px center; /* Posisi panah di kanan */
+  background-size: 16px;
+  padding-right: 45px; /* Memberi ruang agar teks tidak tertimpa panah */
+}
+
+/* Latar belakang pilihan filter saat diklik (harus gelap agar teks putih terlihat) */
+.search-filter-container select option {
+  background-color: #0f172a; /* Ganti dengan warna background utama web Anda jika perlu */
+  color: #ffffff;
+}
 </style>
 </head>
 <body>
