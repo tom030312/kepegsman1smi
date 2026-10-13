@@ -499,7 +499,10 @@
                   <div class="nip">NIP. ${escapeHTML(p.NIP)}</div>
                   <h2 class="nama">${escapeHTML(p.Nama)}</h2>
                   <div class="pangkat-wrapper">
-                    <span class="golongan">${escapeHTML(p.Pangkat)} (${escapeHTML(p.Golongan)})</span>
+                    <span class="golongan">
+                      ${escapeHTML(p.Pangkat).replace(/PNS|PPPK PW|PPPK/gi, '')} (${escapeHTML(p.Golongan).replace(/PNS|PPPK PW|PPPK/gi, '')})
+                       <span style="display:none;">${escapeHTML(p.Pangkat)} ${escapeHTML(p.Golongan)}</span>
+                      </span>
                     <div class="badge-container">
                       <span class="badge-mapel">${escapeHTML(p.Mapel)}</span>
                     </div>
@@ -531,11 +534,10 @@
   let found = false;
 
   for (let i = 0; i < cards.length; i++) {
-    const nama = cards[i].querySelector('.nama').innerText.toLowerCase();
-    const nip = cards[i].querySelector('.nip').innerText.toLowerCase();
-    
+      const nama = cards[i].querySelector('.nama').textContent.toLowerCase();
+      const nip = cards[i].querySelector('.nip').textContent.toLowerCase();
     // Membaca seluruh teks di dalam kartu untuk mencari status (PNS/PPPK/dll)
-    const teksKartu = cards[i].innerText.toLowerCase(); 
+      const teksKartu = cards[i].textContent.toLowerCase();
 
     const matchSearch = nama.includes(searchInput) || nip.includes(searchInput);
     const matchFilter = filterValue === "" || teksKartu.includes(filterValue);
