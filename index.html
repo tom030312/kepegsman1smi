@@ -482,7 +482,10 @@
                   <div class="nip">NIP. ${escapeHTML(p.NIP)}</div>
                   <h2 class="nama">${escapeHTML(p.Nama)}</h2>
                   <div class="pangkat-wrapper">
-                    <span class="golongan">${escapeHTML(p.Pangkat)} (${escapeHTML(p.Golongan)})</span>
+                    <span class="golongan">
+                     ${escapeHTML(p.Pangkat).replace(/PNS|PPPK PW|PPPK/gi, '')} (${escapeHTML(p.Golongan).replace(/PNS|PPPK PW|PPPK/gi, '')})
+                     <span style="display:none;">${escapeHTML(p.Pangkat)} ${escapeHTML(p.Golongan)}</span>
+                      </span>
                     <div class="badge-container">
                       <span class="badge-mapel" style="background-color: ${badgeColor}; color: ${textColor};">${escapeHTML(jabatan)}</span>
                     </div>
