@@ -539,14 +539,28 @@
   let found = false;
 
   for (let i = 0; i < cards.length; i++) {
-      const nama = cards[i].querySelector('.nama').textContent.toLowerCase();
-      const nip = cards[i].querySelector('.nip').textContent.toLowerCase();
-    // Membaca seluruh teks di dalam kartu untuk mencari status (PNS/PPPK/dll)
-      const teksKartu = cards[i].textContent.toLowerCase();
+    const nama = cards[i].querySelector('.nama') ? cards[i].querySelector('.nama').textContent.toLowerCase() : '';
+    const nip = cards[i].querySelector('.nip') ? cards[i].querySelector('.nip').textContent.toLowerCase() : '';
+    
+    // Membaca seluruh teks di dalam kartu (termasuk teks rahasia yang tersembunyi)
+    const teksKartu = cards[i].textContent.toLowerCase(); 
 
+    // Mencocokkan pencarian nama / NIP
     const matchSearch = nama.includes(searchInput) || nip.includes(searchInput);
-    const matchFilter = filterValue === "" || teksKartu.includes(filterValue);
+    
+    // Logika khusus filter status agar "PPPK" dan "PPPK PW" terpisah sempurna
+    let matchFilter = false;
+    if (filterValue === "") {
+      matchFilter = true; // Tampilkan semua
+    } else if (filterValue === "pppk") {
+      // Hanya pilih PPPK biasa (tidak termasuk PPPK PW)
+      matchFilter = teksKartu.includes("pppk") && !teksKartu.includes("pppk pw");
+    } else {
+      // Untuk "pns" atau "pppk pw"
+      matchFilter = teksKartu.includes(filterValue);
+    }
 
+    // Tampilkan atau sembunyikan kartu
     if (matchSearch && matchFilter) {
       cards[i].style.display = ""; 
       found = true;
