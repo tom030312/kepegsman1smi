@@ -194,6 +194,22 @@
     background-color: var(--accent-blue); 
     letter-spacing: 0.5px;
   }
+    /* Desain Wadah Pencarian & Filter untuk Laptop/Tablet */
+.search-filter-container {
+  display: flex;
+  flex-direction: row; /* Berdampingan kiri-kanan */
+  gap: 10px;
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  padding: 0 15px;
+}
+
+/* Memastikan kotak pencarian mengambil sisa ruang yang ada */
+.search-filter-container input {
+  flex: 1;
+  width: 100%;
+}
 
   /* Utilities */
   #loading { text-align: center; font-size: 1.1rem; color: var(--accent-blue); margin: 30px; font-weight: 600; }
@@ -257,6 +273,18 @@
     flex: 0 0 150px; /* Kunci lebar kartu pimpinan di angka 150px */
     scroll-snap-align: start; /* Saat digeser, kartu akan merapat rapi ke sisi kiri */
   }
+  /* Membuat pencarian dan filter bertumpuk atas-bawah di HP */
+  .search-filter-container {
+    flex-direction: column; 
+    gap: 12px;
+  }
+
+  /* Melebarkan tombol filter agar sepenuh layar dan mudah dipencet jari */
+  .filter-dropdown {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem; /* Sedikit diperbesar agar nyaman dibaca di HP */
+  }
 }
 /* ========================================= */ /* <-- PASTIKAN KODE BARU ADA DI ATAS TANDA KURUNG TUTUP INI */
 
@@ -317,6 +345,7 @@
     border: 2px solid var(--accent-yellow);
     box-shadow: 0 0 20px rgba(252, 225, 22, 0.15);
   }
+
 </style>
 </head>
 <body>
@@ -363,7 +392,17 @@
       <div id="no-result">Tidak ada data pegawai yang cocok.</div>
     </div>
   </div>
-
+<!-- Wadah Pencarian & Filter -->
+<div class="search-filter-container">
+  <input type="text" id="searchInput" onkeyup="filterPegawai()" placeholder="Ketik nama atau NIP...">
+  
+  <select id="statusFilter" onchange="filterPegawai()" class="filter-dropdown">
+    <option value="">Semua Status</option>
+    <option value="pns">PNS</option>
+    <option value="pppk">PPPK</option>
+    <option value="pppk pw">PPPK PW</option>
+  </select>
+</div>
   <script>
     // MASUKKAN LINK APPSCRIPT ANDA DI SINI (JANGAN LUPA KUTIP TUNGGALNYA)
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyG73_qNCkImlWoOwo5O2F2c9NMQRZGswhoH0VuUXdpLWR9QL2JeYsownHBS_YFum7TnQ/exec';
@@ -444,6 +483,39 @@
     }
 
     loadData();
+// Filter Pegawai
+  function filterPegawai() {
+  const searchInput = document.getElementById('searchInput').value.toLowerCase();
+  const filterValue = document.getElementById('statusFilter').value.toLowerCase();
+  
+  const cards = document.getElementsByClassName('card');
+  const noResult = document.getElementById('no-result');
+  let found = false;
+
+  for (let i = 0; i < cards.length; i++) {
+    const nama = cards[i].querySelector('.nama').innerText.toLowerCase();
+    const nip = cards[i].querySelector('.nip').innerText.toLowerCase();
+    
+    // Membaca seluruh teks di dalam kartu untuk mencari status (PNS/PPPK/dll)
+    const teksKartu = cards[i].innerText.toLowerCase(); 
+
+    const matchSearch = nama.includes(searchInput) || nip.includes(searchInput);
+    const matchFilter = filterValue === "" || teksKartu.includes(filterValue);
+
+    if (matchSearch && matchFilter) {
+      cards[i].style.display = ""; 
+      found = true;
+    } else {
+      cards[i].style.display = "none"; 
+    }
+  }
+
+  if (found) {
+    if (noResult) noResult.style.display = "none";
+  } else {
+    if (noResult) noResult.style.display = "block";
+  }
+}
   </script>
 
 </body>
