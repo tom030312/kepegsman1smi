@@ -522,12 +522,37 @@
         gridPimpinan.innerHTML = htmlPimpinan;
         gridPegawai.innerHTML = '<div id="no-result" style="display: none; grid-column: 1 / -1; text-align: center; color: #94A3B8; margin: 50px;">Tidak ada data pegawai yang cocok.</div>' + htmlPegawai;
         loading.style.display = 'none';
+        updateStatistik();   // <---1. data stasis
       } catch (error) {
         console.error('Error:', error);
         document.getElementById('loading').innerText = 'Koneksi terputus. Gagal memuat data.';
       }
     }
+        // <--- 2. data statis
+function updateStatistik() {
+  const cards = document.querySelectorAll('.card');
+  let total = cards.length;
+  let pns = 0;
+  let pppk = 0;
+  let pppkPw = 0;
 
+  cards.forEach(card => {
+    const teks = card.textContent.toLowerCase();
+    if (teks.includes('pppk pw')) {
+      pppkPw++;
+    } else if (teks.includes('pppk')) {
+      pppk++;
+    } else if (teks.includes('pns')) {
+      pns++;
+    }
+  });
+
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-pns').textContent = pns;
+  document.getElementById('stat-pppk').textContent = pppk;
+  document.getElementById('stat-pppk-pw').textContent = pppkPw;
+}
+   // <--- 3. data statis
     loadData();
 // Filter
   function filterPegawai() {
